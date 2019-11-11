@@ -1,4 +1,4 @@
-package com.example.weatherapp.domane.di
+package com.example.weatherapp.di
 
 import com.example.weatherapp.presentation.cities.CitiesAdapter
 import dagger.Module

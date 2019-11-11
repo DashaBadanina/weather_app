@@ -1,6 +1,7 @@
-package com.example.weatherapp.domane.di
+package com.example.weatherapp.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.App
 import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.domane.repository.CityRepository
@@ -20,4 +21,5 @@ interface AppComponent {
     fun getContext(): Context
     fun getWeatherRepository(): WeatherRepository
     fun getCityRepository(): CityRepository
+    fun getViewModelFactory(): ViewModelProvider.Factory
 }

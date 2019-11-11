@@ -1,4 +1,4 @@
-package com.example.weatherapp.domane.di
+package com.example.weatherapp.di
 
 import android.content.Context
 import androidx.room.Room
@@ -62,11 +62,6 @@ class AppModule {
     @Singleton
     @Provides
     fun provideCityDao(db: AppDatabase): CityDao {
-        db.cityDao().insertCities(
-            arrayListOf(
-                City(511196, "Perm", "RU"),
-                City(524901, "Moscow", "RU"))
-        )
         return db.cityDao()
     }
 

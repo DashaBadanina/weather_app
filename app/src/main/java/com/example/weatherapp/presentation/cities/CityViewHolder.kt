@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.city_view_holder.view.*
 
 class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun update (city: City) {
+    fun update (city: City, ) {
         itemView.apply {
             this.city_name.text = city.name
         }

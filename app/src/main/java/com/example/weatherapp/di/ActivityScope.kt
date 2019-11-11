@@ -1,4 +1,4 @@
-package com.example.weatherapp.domane.di
+package com.example.weatherapp.di
 
 import javax.inject.Scope
 

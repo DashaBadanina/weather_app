@@ -13,6 +13,7 @@ class CitiesAdapter : RecyclerView.Adapter<CityViewHolder>() {
         field = value
         notifyDataSetChanged()
     }
+    var itemClickListener: ((Long) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val viewItem = LayoutInflater.from(parent.context)
