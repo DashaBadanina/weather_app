@@ -31,7 +31,7 @@ class CitiesActivity : AppCompatActivity() {
         model = ViewModelProviders.of(this, viewModelFactory)
             .get(CitiesViewModel::class.java)
 
-        model.getCities().observe(this, Observer<List<City>> {cities ->
+        model.getCities().observe(this, Observer<List<City>> { cities ->
             cities?.let {
                 adapter.data = it
             }
@@ -45,12 +45,13 @@ class CitiesActivity : AppCompatActivity() {
 
     private fun toForecastActivity(citeId: Long) {
         val i = Intent(this, ForecastActivity::class.java)
-        i.putExtra("", citeId)
+        i.putExtra(ForecastActivity.InitialData.CITY_ID, citeId)
         startActivity(i)
     }
 
     private fun initUi() {
         cities_rv.adapter = adapter
+        adapter.itemClickListener = ::toForecastActivity
     }
 
     private fun updateCities() {

@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Room
 import com.example.weatherapp.data.bd.AppDatabase
 import com.example.weatherapp.data.bd.dao.CityDao
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.bd.dao.ForecastDao
+import com.example.weatherapp.data.bd.dao.WeatherDao
 import com.example.weatherapp.data.network.NetworkConfig
 import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.data.repository.CityRepositoryImpl
+import com.example.weatherapp.data.repository.ForecastRepositoryImpl
 import com.example.weatherapp.data.repository.WeatherRepositoryImpl
 import com.example.weatherapp.domane.repository.CityRepository
+import com.example.weatherapp.domane.repository.ForecastRepository
 import com.example.weatherapp.domane.repository.WeatherRepository
 import com.example.weatherapp.domane.usecase.CityInteractor
-import com.example.weatherapp.domane.usecase.WeatherInteractor
+import com.example.weatherapp.domane.usecase.ForecastInteractor
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -67,25 +70,52 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideForecastDao(db: AppDatabase): ForecastDao {
+        return db.forecastDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherDao(db: AppDatabase): WeatherDao {
+        return db.weatherDao()
+    }
+
+    @Singleton
+    @Provides
     fun provideCityReposytory(cityDao: CityDao): CityRepository {
         return CityRepositoryImpl(cityDao)
     }
 
     @Singleton
     @Provides
-    fun provideWeatherRepository(api: OpenWeatherApi): WeatherRepository {
-        return WeatherRepositoryImpl(api)
+    fun provideWeatherRepository(api: OpenWeatherApi, weatherDao: WeatherDao): WeatherRepository {
+        return WeatherRepositoryImpl(api, weatherDao)
     }
 
     @Singleton
     @Provides
-    fun provideCityInteractor(repository: CityRepository): CityInteractor {
-        return CityInteractor(repository)
+    fun provideForecastRepository(
+        api: OpenWeatherApi,
+        forecastDao: ForecastDao
+    ): ForecastRepository {
+        return ForecastRepositoryImpl(api, forecastDao)
     }
 
     @Singleton
     @Provides
-    fun provideWeatherInteractor(repository: WeatherRepository): WeatherInteractor {
-        return WeatherInteractor(repository)
+    fun provideCityInteractor(
+        cityRepository: CityRepository,
+        weatherRepository: WeatherRepository
+    ): CityInteractor {
+        return CityInteractor(cityRepository, weatherRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideForecastInteractor(
+        weatherRepository: WeatherRepository,
+        forecastRepository: ForecastRepository
+    ): ForecastInteractor {
+        return ForecastInteractor(forecastRepository, weatherRepository)
     }
 }

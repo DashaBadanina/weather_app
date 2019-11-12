@@ -6,7 +6,7 @@ import io.reactivex.Observable
 
 interface CityRepository {
 
-    fun getCities(): Observable<List<City>>
+    fun getAll(): Observable<List<City>>
 
-    fun saveCities(cities: List<City>): Completable
+    fun saveAll(cities: List<City>): Observable<List<City>>
 }

@@ -11,13 +11,12 @@ class CityRepositoryImpl @Inject constructor(
     private val dataSource: CityDao
 ): CityRepository {
 
-    override fun saveCities(cities: List<City>): Completable {
-        return Completable.fromCallable {
-            dataSource.insertCities(cities)
-        }
+    override fun saveAll(cities: List<City>): Observable<List<City>> {
+        return dataSource.insertCities(cities)
+
     }
 
-    override fun getCities(): Observable<List<City>> {
+    override fun getAll(): Observable<List<City>> {
         return dataSource.getCities()
     }
 }

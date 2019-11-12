@@ -3,6 +3,8 @@ package com.example.weatherapp.data.bd
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.weatherapp.data.bd.dao.CityDao
+import com.example.weatherapp.data.bd.dao.ForecastDao
+import com.example.weatherapp.data.bd.dao.WeatherDao
 import com.example.weatherapp.data.entity.City
 
 @Database(
@@ -10,7 +12,9 @@ import com.example.weatherapp.data.entity.City
     version = 1,
     exportSchema = false
 )
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun cityDao(): CityDao
+    abstract fun forecastDao(): ForecastDao
+    abstract fun weatherDao(): WeatherDao
 }

@@ -17,7 +17,7 @@ interface OpenWeatherApi {
 
     @GET("forecast")
     fun getForecast(
-        @Query("cityId") cityId: Long,
+        @Query("id") cityId: Long,
         @Query("units") units: String = NetworkConfig.TEMP_UNITS,
         @Query("APPID") appid: String = NetworkConfig.APPID
     ): Observable<Forecast>

@@ -13,12 +13,12 @@ class CitiesAdapter : RecyclerView.Adapter<CityViewHolder>() {
         field = value
         notifyDataSetChanged()
     }
-    var itemClickListener: ((Long) -> Unit)? = null
+    lateinit var itemClickListener: (Long) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val viewItem = LayoutInflater.from(parent.context)
             .inflate(R.layout.city_view_holder, parent, false)
-        return CityViewHolder(viewItem)
+        return CityViewHolder(viewItem, itemClickListener)
 
     }
 

@@ -32,7 +32,7 @@ class App : Application() {
     private fun initPrePopulateDb() {
         appComponent
             .getCityRepository()
-            .saveCities(getPrePopulatedCities())
+            .saveAll(getPrePopulatedCities())
             .subscribeOn(Schedulers.io())
             .subscribe()
     }

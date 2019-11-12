@@ -4,18 +4,18 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.entity.Weather
 import io.reactivex.Observable
 
 @Dao
-interface CityDao {
+interface WeatherDao {
 
-    @Query("SELECT * FROM cities")
-    fun getCities(): Observable<List<City>>
+    @Query("SELECT * FROM weather WHERE id = :cityId")
+    fun getWeather(cityId: Long): Observable<Weather>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCities(cities: List<City>): Observable<List<City>>
+    fun insertWeather(weather: Weather): Observable<Weather>
 
-    @Query("DELETE FROM cities")
+    @Query("DELETE FROM weather")
     fun deleteAll()
 }
