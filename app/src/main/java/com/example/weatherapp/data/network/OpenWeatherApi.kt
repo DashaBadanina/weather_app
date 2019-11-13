@@ -26,6 +26,7 @@ interface OpenWeatherApi {
     @GET("find")
     fun getSearchCitiesResult(
         @Query("q") cityName: String,
+        @Query("units") units: String = NetworkConfig.TEMP_UNITS,
         @Query("type") type: String = NetworkConfig.SEARCH_STRATEGY_TYPE,
         @Query("APPID") appid: String = NetworkConfig.APPID
     ): Observable<SearchCityResult>

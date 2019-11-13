@@ -4,7 +4,7 @@ import com.example.weatherapp.data.bd.dao.ForecastDao
 import com.example.weatherapp.data.entity.Forecast
 import com.example.weatherapp.data.entity.Weather
 import com.example.weatherapp.data.network.OpenWeatherApi
-import com.example.weatherapp.data.model.mapper.ForecastMapper
+import com.example.weatherapp.data.mapper.ForecastMapper
 import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.domane.repository.ForecastRepository
 import io.reactivex.Completable

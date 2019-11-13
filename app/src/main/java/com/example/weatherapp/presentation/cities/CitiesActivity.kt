@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.weatherapp.App
 import com.example.weatherapp.R
-import com.example.weatherapp.data.model.CityModel
+import com.example.weatherapp.data.model.City
 import com.example.weatherapp.di.CitiesActivityModule
 import com.example.weatherapp.di.DaggerCitiesActivityComponent
 import com.example.weatherapp.presentation.forecast.ForecastActivity
@@ -32,7 +32,7 @@ class CitiesActivity : AppCompatActivity() {
         model = ViewModelProviders.of(this, viewModelFactory)
             .get(CitiesViewModel::class.java)
 
-        model.getCities().observe(this, Observer<List<CityModel>> { cities ->
+        model.getCities().observe(this, Observer<List<City>> { cities ->
             cities?.let {
                 adapter.data = it
             }
@@ -50,19 +50,19 @@ class CitiesActivity : AppCompatActivity() {
         startActivity(i)
     }
 
-    fun toSearchActivity() {
+    private fun toSearchActivity() {
         val i = Intent(this, SearchActivity::class.java)
         startActivity(i)
+    }
+
+    private fun updateCities() {
+        model.loadCities()
     }
 
     private fun initUi() {
         search_view.setOnClickListener { toSearchActivity() }
         cities_list.adapter = adapter
         adapter.itemClickListener = ::toForecastActivity
-    }
-
-    private fun updateCities() {
-        model.loadCities()
     }
 
     private fun inject() {

@@ -4,7 +4,7 @@ import com.example.weatherapp.presentation.search.SearchActivity
 import com.example.weatherapp.presentation.search.SearchAdapter
 import dagger.Component
 
-@Component(modules = [SearchActivityComponent::class], dependencies = [AppComponent::class])
+@Component(modules = [SearchActivityModule::class], dependencies = [AppComponent::class])
 @ActivityScope
 interface SearchActivityComponent {
 

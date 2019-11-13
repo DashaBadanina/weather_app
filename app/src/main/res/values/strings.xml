@@ -7,7 +7,9 @@
     <!--ForecastActivity!-->
     <string name="degree_celsius">%s \u2103</string>
     <string name="forecast">5 day weather forecast</string>
+    <string name="city_and_country">%s, %s</string>
 
     <!--SearchActivity!-->
     <string name="add_city">Добавить</string>
+    <string name="no_result_message_text">По вашему запросу городов не найдено</string>
 </resources>

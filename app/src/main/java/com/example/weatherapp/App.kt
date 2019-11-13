@@ -2,7 +2,7 @@ package com.example.weatherapp
 
 import android.app.Application
 import android.content.Context
-import com.example.weatherapp.data.model.CityModel
+import com.example.weatherapp.data.model.City
 import com.example.weatherapp.di.AppComponent
 import com.example.weatherapp.di.AppModule
 import com.example.weatherapp.di.DaggerAppComponent
@@ -39,10 +39,10 @@ class App : Application() {
             .subscribe()
     }
 
-    private fun getPrePopulatedCities(): List<CityModel> {
+    private fun getPrePopulatedCities(): List<City> {
         return arrayListOf(
-            CityModel(511196, "Perm", "RU"),
-            CityModel(524901, "Moscow", "RU")
+            City(511196, "Perm", "RU"),
+            City(524901, "Moscow", "RU")
         )
     }
 

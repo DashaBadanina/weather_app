@@ -2,7 +2,7 @@ package com.example.weatherapp.presentation.cities
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.data.model.CityModel
+import com.example.weatherapp.data.model.City
 import kotlinx.android.synthetic.main.city_view_holder.view.*
 
 class CityViewHolder(
@@ -10,23 +10,23 @@ class CityViewHolder(
     itemClickListener: (Long) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
 
-    private lateinit var currentCityModel: CityModel
+    private lateinit var currentCity: City
 
     init {
         itemView.apply {
             setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    itemClickListener(currentCityModel.id)
+                    itemClickListener(currentCity.id)
                 }
             }
         }
 
     }
 
-    fun update(cityModel: CityModel) {
-        this.currentCityModel = cityModel
+    fun update(city: City) {
+        this.currentCity = city
         itemView.apply {
-            this.city_name.text = cityModel.name
+            this.city_name.text = city.name
         }
     }
 }

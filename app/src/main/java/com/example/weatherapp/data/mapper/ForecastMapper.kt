@@ -1,4 +1,4 @@
-package com.example.weatherapp.data.model.mapper
+package com.example.weatherapp.data.mapper
 
 import com.example.weatherapp.data.entity.Forecast
 import com.example.weatherapp.data.entity.Weather
@@ -6,7 +6,7 @@ import com.example.weatherapp.data.entity.WeatherData
 import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.data.model.SimpleForecastData
 import com.example.weatherapp.domane.DateUtils
-import kotlin.math.round
+import kotlin.math.roundToInt
 
 class ForecastMapper : Mapper<Pair<Forecast, Weather>, ForecastModel>() {
 
@@ -16,11 +16,11 @@ class ForecastMapper : Mapper<Pair<Forecast, Weather>, ForecastModel>() {
 
     private fun map(forecast: Forecast, weather: Weather): ForecastModel {
         return ForecastModel(
-            id = forecast.cityModel.id,
-            name = forecast.cityModel.name,
-            country = forecast.cityModel.country,
+            id = forecast.city.id,
+            name = forecast.city.name,
+            country = forecast.city.country,
             current_weather_desc = weather.weather[0].description,
-            current_weather_temp = round(weather.main.temp).toString(),
+            current_weather_temp = weather.main.temp.roundToInt().toString(),
             current_weather_icon = weather.weather[0].icon,
             forecast = getSimpleForecastDataList(forecast.list)
         )
@@ -32,7 +32,7 @@ class ForecastMapper : Mapper<Pair<Forecast, Weather>, ForecastModel>() {
                 SimpleForecastData(
                     day = DateUtils.getFormattedDay(item.dt),
                     time = DateUtils.getFormattedTime(item.dt),
-                    temp = round(item.main.temp).toString(),
+                    temp = item.main.temp.roundToInt().toString(),
                     icon = item.weather[0].icon
                 )
             }

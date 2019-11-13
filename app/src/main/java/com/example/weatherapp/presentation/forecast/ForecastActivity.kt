@@ -35,9 +35,11 @@ class ForecastActivity : AppCompatActivity() {
             .get(ForecastViewModel::class.java)
 
         model.getForecast().observe(this, Observer<ForecastModel> { forecast ->
-            city_name.text = forecast.name
+            city_name.text =
+                resources.getString(R.string.city_and_country, forecast.name, forecast.country)
             city_description.text = forecast.current_weather_desc
-            city_degree.text = resources.getString(R.string.degree_celsius, forecast.current_weather_temp)
+            city_degree.text =
+                resources.getString(R.string.degree_celsius, forecast.current_weather_temp)
             ImageLoader.load(forecast.current_weather_icon, city_weather_icon)
             city_forecast.visibility = View.VISIBLE
             forecast?.let {
@@ -51,14 +53,14 @@ class ForecastActivity : AppCompatActivity() {
         updateForecast()
     }
 
-    private fun initUi() {
-        forecast_list.adapter = adapter
-    }
-
     private fun updateForecast() {
         model.loadForecast(
             intent.getLongExtra(InitialData.CITY_ID, 0)
         )
+    }
+
+    private fun initUi() {
+        forecast_list.adapter = adapter
     }
 
     private fun inject() {

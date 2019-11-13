@@ -6,7 +6,8 @@ import com.example.weatherapp.data.bd.AppDatabase
 import com.example.weatherapp.data.bd.dao.CityDao
 import com.example.weatherapp.data.bd.dao.ForecastDao
 import com.example.weatherapp.data.bd.dao.WeatherDao
-import com.example.weatherapp.data.model.mapper.ForecastMapper
+import com.example.weatherapp.data.mapper.CityMapper
+import com.example.weatherapp.data.mapper.ForecastMapper
 import com.example.weatherapp.data.network.NetworkConfig
 import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.data.repository.CityRepositoryImpl
@@ -74,6 +75,12 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideCityMapper(): CityMapper {
+        return CityMapper()
+    }
+
+    @Singleton
+    @Provides
     fun provideCityDao(db: AppDatabase): CityDao {
         return db.cityDao()
     }
@@ -137,7 +144,11 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideSearchInteractor(searchRepository: SearchRepository): SearchInteractor {
-        return SearchInteractor(searchRepository)
+    fun provideSearchInteractor(
+        searchRepository: SearchRepository,
+        cityRepository: CityRepository,
+        cityMapper: CityMapper
+    ): SearchInteractor {
+        return SearchInteractor(searchRepository, cityRepository, cityMapper)
     }
 }

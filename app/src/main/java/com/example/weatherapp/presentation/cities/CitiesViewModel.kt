@@ -3,7 +3,7 @@ package com.example.weatherapp.presentation.cities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.data.model.CityModel
+import com.example.weatherapp.data.model.City
 import com.example.weatherapp.domane.usecase.CityInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,11 +14,11 @@ class CitiesViewModel
 
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    private val cities: MutableLiveData<List<CityModel>> = MutableLiveData()
+    private val cities: MutableLiveData<List<City>> = MutableLiveData()
     private val state: MutableLiveData<Boolean> = MutableLiveData()
     private val error: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getCities(): LiveData<List<CityModel>> = cities
+    fun getCities(): LiveData<List<City>> = cities
 
     fun getState(): LiveData<Boolean> = state
 

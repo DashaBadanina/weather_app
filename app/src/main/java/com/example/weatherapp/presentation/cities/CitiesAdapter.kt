@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
-import com.example.weatherapp.data.model.CityModel
+import com.example.weatherapp.data.model.City
 
 class CitiesAdapter : RecyclerView.Adapter<CityViewHolder>() {
 
-    var data: List<CityModel> = arrayListOf()
+    var data: List<City> = arrayListOf()
     set(value) {
         field = value
         notifyDataSetChanged()

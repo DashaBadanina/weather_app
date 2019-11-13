@@ -14,10 +14,12 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
             notifyDataSetChanged()
         }
 
+    lateinit var itemClickListener: (SearchCity) -> Unit
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val viewItem = LayoutInflater.from(parent.context)
             .inflate(R.layout.search_view_holder, parent, false)
-        return SearchViewHolder(viewItem)
+        return SearchViewHolder(viewItem, itemClickListener)
 
     }
 

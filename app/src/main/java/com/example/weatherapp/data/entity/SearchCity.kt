@@ -4,5 +4,6 @@ data class SearchCity(
     val id: Long,
     val name: String,
     val sys: Country,
-    val weatherData: WeatherData
+    val weather: List<WeatherCondition>,
+    val main: WeatherMain
 )
