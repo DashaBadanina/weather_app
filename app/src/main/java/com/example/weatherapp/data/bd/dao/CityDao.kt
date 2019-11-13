@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.model.City
 import io.reactivex.Observable
 
 @Dao
@@ -14,7 +14,7 @@ interface CityDao {
     fun getCities(): Observable<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCities(cities: List<City>): Observable<List<City>>
+    fun insertCities(cities: List<City>)
 
     @Query("DELETE FROM cities")
     fun deleteAll()

@@ -11,6 +11,7 @@ import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.data.repository.CityRepositoryImpl
 import com.example.weatherapp.data.repository.ForecastRepositoryImpl
 import com.example.weatherapp.data.repository.WeatherRepositoryImpl
+import com.example.weatherapp.data.model.mapper.ForecastMapper
 import com.example.weatherapp.domane.repository.CityRepository
 import com.example.weatherapp.domane.repository.ForecastRepository
 import com.example.weatherapp.domane.repository.WeatherRepository
@@ -64,6 +65,12 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideForecastMapper(): ForecastMapper {
+        return ForecastMapper()
+    }
+
+    @Singleton
+    @Provides
     fun provideCityDao(db: AppDatabase): CityDao {
         return db.cityDao()
     }
@@ -96,9 +103,10 @@ class AppModule {
     @Provides
     fun provideForecastRepository(
         api: OpenWeatherApi,
-        forecastDao: ForecastDao
+        forecastDao: ForecastDao,
+        forecastMapper: ForecastMapper
     ): ForecastRepository {
-        return ForecastRepositoryImpl(api, forecastDao)
+        return ForecastRepositoryImpl(api, forecastDao, forecastMapper)
     }
 
     @Singleton
@@ -113,9 +121,8 @@ class AppModule {
     @Singleton
     @Provides
     fun provideForecastInteractor(
-        weatherRepository: WeatherRepository,
         forecastRepository: ForecastRepository
     ): ForecastInteractor {
-        return ForecastInteractor(forecastRepository, weatherRepository)
+        return ForecastInteractor(forecastRepository)
     }
 }

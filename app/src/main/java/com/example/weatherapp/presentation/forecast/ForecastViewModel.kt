@@ -3,7 +3,7 @@ package com.example.weatherapp.presentation.forecast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.data.entity.Forecast
+import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.domane.usecase.ForecastInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,11 +15,11 @@ class ForecastViewModel
 
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    private val forecast: MutableLiveData<Forecast> = MutableLiveData()
+    private val forecast: MutableLiveData<ForecastModel> = MutableLiveData()
     private val state: MutableLiveData<Boolean> = MutableLiveData()
     private val error: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getForecast(): LiveData<Forecast> = forecast
+    fun getForecast(): LiveData<ForecastModel> = forecast
 
     fun getState(): LiveData<Boolean> = state
 

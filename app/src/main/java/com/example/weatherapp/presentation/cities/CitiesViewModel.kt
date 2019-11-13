@@ -3,7 +3,7 @@ package com.example.weatherapp.presentation.cities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.model.City
 import com.example.weatherapp.domane.usecase.CityInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

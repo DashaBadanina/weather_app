@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.weatherapp.App
 import com.example.weatherapp.R
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.model.City
 import com.example.weatherapp.di.CitiesActivityModule
 import com.example.weatherapp.di.DaggerCitiesActivityComponent
 import com.example.weatherapp.presentation.forecast.ForecastActivity

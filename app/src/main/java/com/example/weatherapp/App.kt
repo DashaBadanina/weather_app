@@ -1,7 +1,7 @@
 package com.example.weatherapp
 
 import android.app.Application
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.model.City
 import com.example.weatherapp.di.AppComponent
 import com.example.weatherapp.di.AppModule
 import com.example.weatherapp.di.DaggerAppComponent

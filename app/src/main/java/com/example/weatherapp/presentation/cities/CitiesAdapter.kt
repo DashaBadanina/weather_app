@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
-import com.example.weatherapp.data.entity.City
+import com.example.weatherapp.data.model.City
 
 class CitiesAdapter : RecyclerView.Adapter<CityViewHolder>() {
 

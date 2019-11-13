@@ -1,15 +1,16 @@
 package com.example.weatherapp.domane.usecase
 
+import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.domane.repository.ForecastRepository
-import com.example.weatherapp.domane.repository.WeatherRepository
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class ForecastInteractor @Inject constructor(
-    private val forecastRepository: ForecastRepository,
-    private val weatheRepository: WeatherRepository
+    private val forecastRepository: ForecastRepository
 ) {
 
-    fun getForecast(cityId: Long) =
-        forecastRepository
+    fun getForecast(cityId: Long) : Observable<ForecastModel> {
+        return forecastRepository
             .get(cityId)
+    }
 }

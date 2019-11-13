@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+
+    <!--ForecastActivity!-->
+    <string name="degree_celsius">%s \u2103</string>
+    <string name="forecast">5 day weather forecast</string>
 </resources>

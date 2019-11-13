@@ -1,4 +1,4 @@
-package com.example.weatherapp.domane.model
+package com.example.weatherapp.data.model.mapper
 
 abstract class Mapper<FromT, ToT> {
 
