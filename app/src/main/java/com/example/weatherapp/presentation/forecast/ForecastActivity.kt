@@ -1,10 +1,12 @@
 package com.example.weatherapp.presentation.forecast
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.Visibility
 import com.bumptech.glide.Glide
 import com.example.weatherapp.App
 import com.example.weatherapp.R
@@ -12,6 +14,7 @@ import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.data.network.NetworkConfig
 import com.example.weatherapp.di.DaggerForecastActivityComponent
 import com.example.weatherapp.di.ForecastActivityModule
+import com.example.weatherapp.presentation.ImageLoader
 import kotlinx.android.synthetic.main.forecast_activity.*
 import javax.inject.Inject
 
@@ -35,10 +38,8 @@ class ForecastActivity : AppCompatActivity() {
             city_name.text = forecast.name
             city_description.text = forecast.current_weather_desc
             city_degree.text = resources.getString(R.string.degree_celsius, forecast.current_weather_temp)
-            Glide
-                .with(city_weather_icon)
-                .load(NetworkConfig.formattedImageUrl(forecast.current_weather_icon))
-                .into(city_weather_icon)
+            ImageLoader.load(forecast.current_weather_icon, city_weather_icon)
+            city_forecast.visibility = View.VISIBLE
             forecast?.let {
                 adapter.data = it.forecast
             }

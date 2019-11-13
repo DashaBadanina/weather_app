@@ -1,8 +1,8 @@
 package com.example.weatherapp.data.entity
 
-import com.example.weatherapp.data.model.City
+import com.example.weatherapp.data.model.CityModel
 
 data class Forecast (
     val list: List<WeatherData>,
-    val city: City
+    val cityModel: CityModel
 )

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "cities")
-data class City (
+data class CityModel (
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Long,

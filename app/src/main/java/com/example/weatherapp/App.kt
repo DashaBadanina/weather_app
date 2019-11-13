@@ -1,7 +1,8 @@
 package com.example.weatherapp
 
 import android.app.Application
-import com.example.weatherapp.data.model.City
+import android.content.Context
+import com.example.weatherapp.data.model.CityModel
 import com.example.weatherapp.di.AppComponent
 import com.example.weatherapp.di.AppModule
 import com.example.weatherapp.di.DaggerAppComponent
@@ -14,6 +15,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         appComponent = createAppComponent()
         initPrePopulateDb()
     }
@@ -37,10 +39,18 @@ class App : Application() {
             .subscribe()
     }
 
-    private fun getPrePopulatedCities(): List<City> {
+    private fun getPrePopulatedCities(): List<CityModel> {
         return arrayListOf(
-            City(511196, "Perm", "RU"),
-            City(524901, "Moscow", "RU")
+            CityModel(511196, "Perm", "RU"),
+            CityModel(524901, "Moscow", "RU")
         )
+    }
+
+    companion object {
+        lateinit var instance: App
+
+        fun instance() : Context {
+            return instance
+        }
     }
 }

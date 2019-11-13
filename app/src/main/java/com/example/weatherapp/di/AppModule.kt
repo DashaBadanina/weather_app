@@ -6,17 +6,20 @@ import com.example.weatherapp.data.bd.AppDatabase
 import com.example.weatherapp.data.bd.dao.CityDao
 import com.example.weatherapp.data.bd.dao.ForecastDao
 import com.example.weatherapp.data.bd.dao.WeatherDao
+import com.example.weatherapp.data.model.mapper.ForecastMapper
 import com.example.weatherapp.data.network.NetworkConfig
 import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.data.repository.CityRepositoryImpl
 import com.example.weatherapp.data.repository.ForecastRepositoryImpl
+import com.example.weatherapp.data.repository.SearchRepositoryImpl
 import com.example.weatherapp.data.repository.WeatherRepositoryImpl
-import com.example.weatherapp.data.model.mapper.ForecastMapper
 import com.example.weatherapp.domane.repository.CityRepository
 import com.example.weatherapp.domane.repository.ForecastRepository
+import com.example.weatherapp.domane.repository.SearchRepository
 import com.example.weatherapp.domane.repository.WeatherRepository
 import com.example.weatherapp.domane.usecase.CityInteractor
 import com.example.weatherapp.domane.usecase.ForecastInteractor
+import com.example.weatherapp.domane.usecase.SearchInteractor
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -111,6 +114,12 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideSearchRepositoryRepository(api: OpenWeatherApi): SearchRepository {
+        return SearchRepositoryImpl(api)
+    }
+
+    @Singleton
+    @Provides
     fun provideCityInteractor(
         cityRepository: CityRepository,
         weatherRepository: WeatherRepository
@@ -124,5 +133,11 @@ class AppModule {
         forecastRepository: ForecastRepository
     ): ForecastInteractor {
         return ForecastInteractor(forecastRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchInteractor(searchRepository: SearchRepository): SearchInteractor {
+        return SearchInteractor(searchRepository)
     }
 }

@@ -6,13 +6,13 @@ import androidx.room.TypeConverters
 import com.example.weatherapp.data.bd.dao.CityDao
 import com.example.weatherapp.data.bd.dao.ForecastDao
 import com.example.weatherapp.data.bd.dao.WeatherDao
-import com.example.weatherapp.data.model.City
+import com.example.weatherapp.data.model.CityModel
 import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.data.model.WeatherModel
 
 @Database(
     entities = [
-        City::class,
+        CityModel::class,
         ForecastModel::class,
         WeatherModel::class
     ],

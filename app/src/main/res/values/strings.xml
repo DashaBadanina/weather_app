@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">WeatherApp</string>
 
+    <!--CitiesActivity!-->
+    <string name="search_title">Хотите добавить другие города?</string>
+
     <!--ForecastActivity!-->
     <string name="degree_celsius">%s \u2103</string>
     <string name="forecast">5 day weather forecast</string>
+
+    <!--SearchActivity!-->
+    <string name="add_city">Добавить</string>
 </resources>

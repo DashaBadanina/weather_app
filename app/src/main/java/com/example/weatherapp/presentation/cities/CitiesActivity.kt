@@ -8,11 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.weatherapp.App
 import com.example.weatherapp.R
-import com.example.weatherapp.data.model.City
+import com.example.weatherapp.data.model.CityModel
 import com.example.weatherapp.di.CitiesActivityModule
 import com.example.weatherapp.di.DaggerCitiesActivityComponent
 import com.example.weatherapp.presentation.forecast.ForecastActivity
-import kotlinx.android.synthetic.main.current_weather_activity.*
+import com.example.weatherapp.presentation.search.SearchActivity
+import kotlinx.android.synthetic.main.city_activity.*
 import javax.inject.Inject
 
 class CitiesActivity : AppCompatActivity() {
@@ -25,13 +26,13 @@ class CitiesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.current_weather_activity)
+        setContentView(R.layout.city_activity)
         inject()
         initUi()
         model = ViewModelProviders.of(this, viewModelFactory)
             .get(CitiesViewModel::class.java)
 
-        model.getCities().observe(this, Observer<List<City>> { cities ->
+        model.getCities().observe(this, Observer<List<CityModel>> { cities ->
             cities?.let {
                 adapter.data = it
             }
@@ -49,8 +50,14 @@ class CitiesActivity : AppCompatActivity() {
         startActivity(i)
     }
 
+    fun toSearchActivity() {
+        val i = Intent(this, SearchActivity::class.java)
+        startActivity(i)
+    }
+
     private fun initUi() {
-        cities_rv.adapter = adapter
+        search_view.setOnClickListener { toSearchActivity() }
+        cities_list.adapter = adapter
         adapter.itemClickListener = ::toForecastActivity
     }
 

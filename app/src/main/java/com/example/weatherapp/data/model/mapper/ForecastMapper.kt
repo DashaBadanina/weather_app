@@ -5,6 +5,8 @@ import com.example.weatherapp.data.entity.Weather
 import com.example.weatherapp.data.entity.WeatherData
 import com.example.weatherapp.data.model.ForecastModel
 import com.example.weatherapp.data.model.SimpleForecastData
+import com.example.weatherapp.domane.DateUtils
+import kotlin.math.round
 
 class ForecastMapper : Mapper<Pair<Forecast, Weather>, ForecastModel>() {
 
@@ -14,23 +16,25 @@ class ForecastMapper : Mapper<Pair<Forecast, Weather>, ForecastModel>() {
 
     private fun map(forecast: Forecast, weather: Weather): ForecastModel {
         return ForecastModel(
-            id = forecast.city.id,
-            name = forecast.city.name,
-            country = forecast.city.country,
+            id = forecast.cityModel.id,
+            name = forecast.cityModel.name,
+            country = forecast.cityModel.country,
             current_weather_desc = weather.weather[0].description,
-            current_weather_temp = weather.main.temp.toString(),
+            current_weather_temp = round(weather.main.temp).toString(),
             current_weather_icon = weather.weather[0].icon,
             forecast = getSimpleForecastDataList(forecast.list)
         )
     }
 
-    private fun getSimpleForecastDataList(list: List<WeatherData>) : List<SimpleForecastData> {
-        return arrayListOf(
-            SimpleForecastData(
-                date = list[0].dt.toString(),
-                temp = list[0].main.temp.toString(),
-                icon = list[0].weather[0].icon
-            )
-        )
+    private fun getSimpleForecastDataList(list: List<WeatherData>): List<SimpleForecastData> {
+        return list
+            .map {item ->
+                SimpleForecastData(
+                    day = DateUtils.getFormattedDay(item.dt),
+                    time = DateUtils.getFormattedTime(item.dt),
+                    temp = round(item.main.temp).toString(),
+                    icon = item.weather[0].icon
+                )
+            }
     }
 }

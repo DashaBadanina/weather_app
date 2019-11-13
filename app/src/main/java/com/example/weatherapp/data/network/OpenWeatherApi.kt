@@ -1,6 +1,7 @@
 package com.example.weatherapp.data.network
 
 import com.example.weatherapp.data.entity.Forecast
+import com.example.weatherapp.data.entity.SearchCityResult
 import com.example.weatherapp.data.entity.Weather
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -21,4 +22,11 @@ interface OpenWeatherApi {
         @Query("units") units: String = NetworkConfig.TEMP_UNITS,
         @Query("APPID") appid: String = NetworkConfig.APPID
     ): Observable<Forecast>
+
+    @GET("find")
+    fun getSearchCitiesResult(
+        @Query("q") cityName: String,
+        @Query("type") type: String = NetworkConfig.SEARCH_STRATEGY_TYPE,
+        @Query("APPID") appid: String = NetworkConfig.APPID
+    ): Observable<SearchCityResult>
 }
