@@ -6,6 +6,7 @@ import com.example.weatherapp.data.entity.Weather
 import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.data.mapper.ForecastMapper
 import com.example.weatherapp.data.model.ForecastModel
+import com.example.weatherapp.data.network.NetworkUtils
 import com.example.weatherapp.domane.repository.ForecastRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -19,15 +20,20 @@ class ForecastRepositoryImpl @Inject constructor(
     ) : ForecastRepository {
 
     override fun get(cityId: Long): Observable<ForecastModel> {
-        return Observable.zip(
-            api.getForecast(cityId),
-            api.getCurrentWeather(cityId),
-            BiFunction { forecast: Forecast, weather :Weather  ->
-                forecastMapper.mapImpl(Pair(forecast, weather)) }
+        if (NetworkUtils.isNetworkAvailable()) {
+            return Observable.zip(
+                api.getForecast(cityId),
+                api.getCurrentWeather(cityId),
+                BiFunction { forecast: Forecast, weather: Weather ->
+                    forecastMapper.mapImpl(Pair(forecast, weather))
+                }
             )
-            .flatMap {
-                save(it)
-            }
+                .flatMap {
+                    save(it)
+                }
+        } else {
+            return dataSource.getForecast(cityId)
+        }
     }
 
     override fun save(forecast: ForecastModel): Observable<ForecastModel> {
