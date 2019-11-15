@@ -2,6 +2,7 @@ package com.example.weatherapp.presentation.cities
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.R
 import com.example.weatherapp.data.model.City
 import kotlinx.android.synthetic.main.city_view_holder.view.*
 
@@ -26,7 +27,7 @@ class CityViewHolder(
     fun update(city: City) {
         this.currentCity = city
         itemView.apply {
-            this.city_name.text = city.name
+            this.city_name.text = resources.getString(R.string.city_and_country, city.name, city.country)
         }
     }
 }

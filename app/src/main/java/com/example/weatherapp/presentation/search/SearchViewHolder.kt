@@ -21,6 +21,7 @@ class SearchViewHolder(
             setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     itemClickListener(currentSearchCity)
+                    this.isEnabled = false
                 }
             }
         }
