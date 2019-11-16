@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/search_city_name"
-            android:layout_width="77dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -57,8 +57,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/button"
-            android:textColor="@color/c_white_100"
+            android:background="@drawable/add_button"
+            android:textColor="@color/colorWhite"
             android:paddingStart="24dp"
             android:paddingTop="4dp"
             android:paddingEnd="24dp"

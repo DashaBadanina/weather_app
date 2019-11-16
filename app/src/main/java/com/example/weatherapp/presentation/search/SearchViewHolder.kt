@@ -6,7 +6,6 @@ import com.example.weatherapp.R
 import com.example.weatherapp.data.entity.SearchCity
 import com.example.weatherapp.presentation.ImageLoader
 import kotlinx.android.synthetic.main.search_view_holder.view.*
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 class SearchViewHolder(
@@ -21,7 +20,6 @@ class SearchViewHolder(
             setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     itemClickListener(currentSearchCity)
-                    this.isEnabled = false
                 }
             }
         }

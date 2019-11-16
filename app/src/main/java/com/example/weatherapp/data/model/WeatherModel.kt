@@ -8,5 +8,9 @@ import androidx.room.PrimaryKey
 data class WeatherModel (
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Long
+    val id: Long,
+    @ColumnInfo(name = "temp")
+    val current_weather_temp: String,
+    @ColumnInfo(name = "icon")
+    val current_weather_icon: String
 )

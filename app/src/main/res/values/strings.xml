@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="error_message">Something go wrong. Please check the network connection.</string>
 
     <!--CitiesActivity!-->
-    <string name="search_title">Хотите добавить другие города?</string>
+    <string name="search_title">Do you want to add other cities?</string>
 
     <!--ForecastActivity!-->
     <string name="degree_celsius">%s \u2103</string>
@@ -10,6 +11,6 @@
     <string name="city_and_country">%s, %s</string>
 
     <!--SearchActivity!-->
-    <string name="add_city">Добавить</string>
-    <string name="no_result_message_text">По вашему запросу городов не найдено</string>
+    <string name="add_city">add</string>
+    <string name="no_result_message_text">No result found for your request</string>
 </resources>

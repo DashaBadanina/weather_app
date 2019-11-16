@@ -18,11 +18,13 @@
 
         <TextView
             android:id="@+id/city_name"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textAlignment="textStart"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -30,6 +32,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Пермь" />
+
+        <TextView
+            android:id="@+id/city_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/city_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="18 C" />
+
+        <ImageView
+            android:id="@+id/city_weather_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/city_degree" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

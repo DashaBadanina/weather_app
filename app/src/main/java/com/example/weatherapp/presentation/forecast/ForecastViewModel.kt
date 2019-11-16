@@ -17,13 +17,11 @@ class ForecastViewModel
 
     private val forecast: MutableLiveData<ForecastModel> = MutableLiveData()
     private val state: MutableLiveData<Boolean> = MutableLiveData()
-    private val error: MutableLiveData<Boolean> = MutableLiveData()
+    private val error: MutableLiveData<Any> = MutableLiveData()
 
     fun getForecast(): LiveData<ForecastModel> = forecast
 
-    fun getState(): LiveData<Boolean> = state
-
-    fun getError(): LiveData<Boolean> = error
+    fun getError(): LiveData<Any> = error
 
     fun loadForecast(cityId: Long) {
         disposable.add(
@@ -36,7 +34,7 @@ class ForecastViewModel
                 .doOnNext { state.postValue(false) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ forecast.postValue(it) }, { error.postValue(true) })
+                .subscribe({ forecast.postValue(it) }, { error.postValue(Any()) })
         )
     }
 

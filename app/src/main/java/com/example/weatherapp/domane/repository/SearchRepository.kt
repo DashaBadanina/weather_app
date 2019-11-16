@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface SearchRepository {
 
-    fun searchCity(cityName: String) : Observable<SearchCityResult>
+    fun get(cityName: String) : Observable<SearchCityResult>
 }

@@ -8,6 +8,7 @@ import com.example.weatherapp.data.bd.dao.ForecastDao
 import com.example.weatherapp.data.bd.dao.WeatherDao
 import com.example.weatherapp.data.mapper.CityMapper
 import com.example.weatherapp.data.mapper.ForecastMapper
+import com.example.weatherapp.data.mapper.WeatherMapper
 import com.example.weatherapp.data.network.NetworkConfig
 import com.example.weatherapp.data.network.OpenWeatherApi
 import com.example.weatherapp.data.repository.CityRepositoryImpl
@@ -81,6 +82,12 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideWeatheMapper(): WeatherMapper {
+        return WeatherMapper()
+    }
+
+    @Singleton
+    @Provides
     fun provideCityDao(db: AppDatabase): CityDao {
         return db.cityDao()
     }
@@ -99,14 +106,21 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideCityReposytory(cityDao: CityDao): CityRepository {
-        return CityRepositoryImpl(cityDao)
+    fun provideCityReposytory(
+        cityDao: CityDao,
+        cityMapper: CityMapper
+    ): CityRepository {
+        return CityRepositoryImpl(cityDao, cityMapper)
     }
 
     @Singleton
     @Provides
-    fun provideWeatherRepository(api: OpenWeatherApi, weatherDao: WeatherDao): WeatherRepository {
-        return WeatherRepositoryImpl(api, weatherDao)
+    fun provideWeatherRepository(
+        api: OpenWeatherApi,
+        weatherDao: WeatherDao,
+        weatherMapper: WeatherMapper
+    ): WeatherRepository {
+        return WeatherRepositoryImpl(api, weatherDao, weatherMapper)
     }
 
     @Singleton
@@ -121,7 +135,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideSearchRepositoryRepository(api: OpenWeatherApi): SearchRepository {
+    fun provideSearchRepository(api: OpenWeatherApi): SearchRepository {
         return SearchRepositoryImpl(api)
     }
 
@@ -146,9 +160,8 @@ class AppModule {
     @Provides
     fun provideSearchInteractor(
         searchRepository: SearchRepository,
-        cityRepository: CityRepository,
-        cityMapper: CityMapper
+        cityRepository: CityRepository
     ): SearchInteractor {
-        return SearchInteractor(searchRepository, cityRepository, cityMapper)
+        return SearchInteractor(searchRepository, cityRepository)
     }
 }

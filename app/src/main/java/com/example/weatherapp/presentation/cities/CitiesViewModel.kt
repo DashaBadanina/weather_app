@@ -3,10 +3,14 @@ package com.example.weatherapp.presentation.cities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.data.entity.Weather
 import com.example.weatherapp.data.model.City
+import com.example.weatherapp.data.model.WeatherModel
 import com.example.weatherapp.domane.usecase.CityInteractor
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CitiesViewModel
@@ -16,13 +20,11 @@ class CitiesViewModel
 
     private val cities: MutableLiveData<List<City>> = MutableLiveData()
     private val state: MutableLiveData<Boolean> = MutableLiveData()
-    private val error: MutableLiveData<Boolean> = MutableLiveData()
+    private val error: MutableLiveData<Any> = MutableLiveData()
 
     fun getCities(): LiveData<List<City>> = cities
 
-    fun getState(): LiveData<Boolean> = state
-
-    fun getError(): LiveData<Boolean> = error
+    fun getError(): LiveData<Any> = error
 
     fun loadCities() {
         disposable.add(
@@ -33,9 +35,17 @@ class CitiesViewModel
                 }
                 .map { it }
                 .doOnNext { state.postValue(false) }
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ cities.postValue(it) }, { error.postValue(true) })
+                .subscribe({ cities.postValue(it) }, { error.postValue(Any()) })
         )
+    }
+
+    fun loadCurrentWeather(cityId: Long): Observable<WeatherModel> {
+        return cityInteractor
+            .getCurrentWeather(cityId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun onCleared() {

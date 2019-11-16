@@ -2,6 +2,7 @@ package com.example.weatherapp.presentation.cities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,14 +29,14 @@ class CitiesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.city_activity)
         inject()
-        initUi()
         model = ViewModelProviders.of(this, viewModelFactory)
             .get(CitiesViewModel::class.java)
-
+        initUi()
+        model.getError().observe(this,Observer<Any>{
+            onError()
+        } )
         model.getCities().observe(this, Observer<List<City>> { cities ->
-            cities?.let {
-                adapter.data = it
-            }
+            onDataUpdate(cities)
         })
     }
 
@@ -59,10 +60,21 @@ class CitiesActivity : AppCompatActivity() {
         model.loadCities()
     }
 
+    private fun onDataUpdate(cities: List<City>?) {
+        cities?.let {
+            adapter.data = it
+        }
+    }
+
+    private fun onError() {
+        Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_LONG).show()
+    }
+
     private fun initUi() {
         search_view.setOnClickListener { toSearchActivity() }
         cities_list.adapter = adapter
         adapter.itemClickListener = ::toForecastActivity
+        adapter.itemWeatherData = model::loadCurrentWeather
     }
 
     private fun inject() {

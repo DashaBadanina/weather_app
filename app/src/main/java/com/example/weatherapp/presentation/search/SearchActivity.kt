@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,16 +34,12 @@ class SearchActivity : AppCompatActivity() {
         model = ViewModelProviders.of(this, viewModelFactory)
             .get(SearchViewModel::class.java)
 
-        model.getError().observe(this, Observer<Any> { error ->
-            error?.let {
-                onError()
-            }
+        model.getError().observe(this, Observer<Any> {
+            onError()
         })
 
         model.getSearchResult().observe(this, Observer<List<SearchCity>> { list ->
-            list?.let {
-                    adapter.data = it
-            }
+            onDataUpdate(list)
         })
     }
 
@@ -50,20 +47,28 @@ class SearchActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    private fun onModelUpdate() {
-
-    }
-
-    private fun onError() {
-        no_result_message.visibility = View.VISIBLE
-    }
-
     private fun doSearch(cityName: String) {
         model.loadSearchResult(cityName)
     }
 
     private fun addCity(searchCity: SearchCity) {
-        model.addCity(searchCity)
+        model.addCity(searchCity, search_field.text.toString())
+    }
+
+    private fun onDataUpdate(searchCityList: List<SearchCity>?) {
+        searchCityList?.let {
+            if (searchCityList.isNotEmpty()) {
+                no_result_message.visibility = View.INVISIBLE
+                adapter.data = it
+            } else {
+                no_result_message.visibility = View.VISIBLE
+                adapter.data = emptyList()
+            }
+        }
+    }
+
+    private fun onError() {
+        Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_LONG).show()
     }
 
     private fun initUi() {

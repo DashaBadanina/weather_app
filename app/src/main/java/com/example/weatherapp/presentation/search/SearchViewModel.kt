@@ -22,8 +22,6 @@ class SearchViewModel
 
     fun getSearchResult(): LiveData<List<SearchCity>> = searchCityResult
 
-    fun getState(): LiveData<Boolean> = state
-
     fun getError(): LiveData<Any> = error
 
     fun loadSearchResult(cityName: String) {
@@ -41,10 +39,10 @@ class SearchViewModel
         )
     }
 
-    fun addCity(searchCity: SearchCity) {
+    fun addCity(searchCity: SearchCity, cityName: String) {
         disposable.add(
             searchInteractor
-                .saveCity(searchCity)
+                .saveCity(searchCity, cityName)
                 .doOnSubscribe {
                     state.postValue(true)
                 }
@@ -52,7 +50,7 @@ class SearchViewModel
                 .doOnNext { state.postValue(false) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({},{ error.postValue(Any()) })
+                .subscribe({searchCityResult.postValue(it) },{ error.postValue(Any()) })
         )
     }
 

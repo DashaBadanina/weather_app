@@ -11,14 +11,13 @@ import javax.inject.Inject
 
 class SearchInteractor @Inject constructor(
     private val searchRepository: SearchRepository,
-    private val cityRepository: CityRepository,
-    private val cityMapper: CityMapper
+    private val cityRepository: CityRepository
 ) {
 
     fun searchCities(cityName: String): Observable<List<SearchCity>> {
         return Observable.zip(
             searchRepository
-                .searchCity(cityName)
+                .get(cityName)
                 .map { it.list },
             cityRepository.getAll(),
             BiFunction { searchCityList, cityList ->
@@ -29,13 +28,12 @@ class SearchInteractor @Inject constructor(
             })
     }
 
-    fun saveCity(searchCity: SearchCity): Observable<List<City>> {
+    fun saveCity(searchCity: SearchCity, cityName: String): Observable<List<SearchCity>> {
         return Observable
             .just(searchCity)
-            .map { cityMapper.mapImpl(it) }
-            .map { listOf(it) }
             .flatMap {
-                cityRepository.saveAll(it)
+                cityRepository.save(it)
             }
+            .flatMap { searchCities(cityName) }
     }
 }

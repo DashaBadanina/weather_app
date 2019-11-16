@@ -10,7 +10,7 @@ class SearchRepositoryImpl @Inject constructor(
     private val api: OpenWeatherApi
 ) : SearchRepository {
 
-    override fun searchCity(cityName: String): Observable<SearchCityResult> {
+    override fun get(cityName: String): Observable<SearchCityResult> {
         return api.getSearchCitiesResult(cityName)
     }
 }
