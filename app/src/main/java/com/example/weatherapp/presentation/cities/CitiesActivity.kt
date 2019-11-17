@@ -60,6 +60,10 @@ class CitiesActivity : AppCompatActivity() {
         model.loadCities()
     }
 
+    private fun removeCity(cityId: Long) {
+        model.removeCity(cityId)
+    }
+
     private fun onDataUpdate(cities: List<City>?) {
         cities?.let {
             adapter.data = it
@@ -75,6 +79,7 @@ class CitiesActivity : AppCompatActivity() {
         cities_list.adapter = adapter
         adapter.itemClickListener = ::toForecastActivity
         adapter.itemWeatherData = model::loadCurrentWeather
+        adapter.removeItemClickListener = ::removeCity
     }
 
     private fun inject() {

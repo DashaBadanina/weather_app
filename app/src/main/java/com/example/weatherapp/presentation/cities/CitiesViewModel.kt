@@ -3,7 +3,6 @@ package com.example.weatherapp.presentation.cities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.data.entity.Weather
 import com.example.weatherapp.data.model.City
 import com.example.weatherapp.data.model.WeatherModel
 import com.example.weatherapp.domane.usecase.CityInteractor
@@ -19,7 +18,6 @@ class CitiesViewModel
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     private val cities: MutableLiveData<List<City>> = MutableLiveData()
-    private val state: MutableLiveData<Boolean> = MutableLiveData()
     private val error: MutableLiveData<Any> = MutableLiveData()
 
     fun getCities(): LiveData<List<City>> = cities
@@ -30,11 +28,16 @@ class CitiesViewModel
         disposable.add(
             cityInteractor
                 .getCities()
-                .doOnSubscribe {
-                    state.postValue(true)
-                }
-                .map { it }
-                .doOnNext { state.postValue(false) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ cities.postValue(it) }, { error.postValue(Any()) })
+        )
+    }
+
+    fun removeCity(cityId: Long) {
+        disposable.add(
+            cityInteractor
+                .deleteCity(cityId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ cities.postValue(it) }, { error.postValue(Any()) })

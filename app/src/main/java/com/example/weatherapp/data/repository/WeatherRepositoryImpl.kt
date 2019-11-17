@@ -1,7 +1,6 @@
 package com.example.weatherapp.data.repository
 
 import com.example.weatherapp.data.bd.dao.WeatherDao
-import com.example.weatherapp.data.entity.Weather
 import com.example.weatherapp.data.mapper.WeatherMapper
 import com.example.weatherapp.data.model.WeatherModel
 import com.example.weatherapp.data.network.NetworkUtils
@@ -31,5 +30,9 @@ class WeatherRepositoryImpl @Inject constructor(
     override fun save(weather: WeatherModel): Observable<WeatherModel> {
         return Completable.fromCallable { dataSource.insertWeather(weather) }
             .andThen(Observable.just(weather))
+    }
+
+    override fun delete(cityId: Long): Completable {
+        return Completable.fromCallable { dataSource.delete(cityId) }
     }
 }

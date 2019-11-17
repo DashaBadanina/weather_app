@@ -12,4 +12,6 @@ interface CityRepository {
     fun saveAll(cities: List<City>): Observable<List<City>>
 
     fun save(searchCity: SearchCity): Observable<List<City>>
+
+    fun delete(cityId: Long): Completable
 }

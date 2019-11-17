@@ -106,7 +106,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideCityReposytory(
+    fun provideCityRepository(
         cityDao: CityDao,
         cityMapper: CityMapper
     ): CityRepository {
@@ -143,9 +143,10 @@ class AppModule {
     @Provides
     fun provideCityInteractor(
         cityRepository: CityRepository,
-        weatherRepository: WeatherRepository
+        weatherRepository: WeatherRepository,
+        forecastRepository: ForecastRepository
     ): CityInteractor {
-        return CityInteractor(cityRepository, weatherRepository)
+        return CityInteractor(cityRepository, weatherRepository, forecastRepository)
     }
 
     @Singleton

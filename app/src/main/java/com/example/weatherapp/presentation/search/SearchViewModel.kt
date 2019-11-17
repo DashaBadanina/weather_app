@@ -17,7 +17,6 @@ class SearchViewModel
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     private val searchCityResult: MutableLiveData<List<SearchCity>> = MutableLiveData()
-    private val state: MutableLiveData<Boolean> = MutableLiveData()
     private val error: MutableLiveData<Any> = MutableLiveData()
 
     fun getSearchResult(): LiveData<List<SearchCity>> = searchCityResult
@@ -28,11 +27,6 @@ class SearchViewModel
         disposable.add(
             searchInteractor
                 .searchCities(cityName)
-                .doOnSubscribe {
-                    state.postValue(true)
-                }
-                .map { it }
-                .doOnNext { state.postValue(false) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ searchCityResult.postValue(it) }, { error.postValue(Any()) })
@@ -43,11 +37,6 @@ class SearchViewModel
         disposable.add(
             searchInteractor
                 .saveCity(searchCity, cityName)
-                .doOnSubscribe {
-                    state.postValue(true)
-                }
-                .map { it }
-                .doOnNext { state.postValue(false) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({searchCityResult.postValue(it) },{ error.postValue(Any()) })

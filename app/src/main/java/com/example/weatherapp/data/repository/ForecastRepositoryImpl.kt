@@ -17,7 +17,7 @@ class ForecastRepositoryImpl @Inject constructor(
     private val api: OpenWeatherApi,
     private val dataSource: ForecastDao,
     private val forecastMapper: ForecastMapper
-    ) : ForecastRepository {
+) : ForecastRepository {
 
     override fun get(cityId: Long): Observable<ForecastModel> {
         if (NetworkUtils.isNetworkAvailable()) {
@@ -39,5 +39,9 @@ class ForecastRepositoryImpl @Inject constructor(
     override fun save(forecast: ForecastModel): Observable<ForecastModel> {
         return Completable.fromCallable { dataSource.insertForecast(forecast) }
             .andThen(Observable.just(forecast))
+    }
+
+    override fun delete(cityId: Long): Completable {
+        return Completable.fromCallable { dataSource.delete(cityId) }
     }
 }

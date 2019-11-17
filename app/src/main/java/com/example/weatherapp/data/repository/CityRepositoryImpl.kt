@@ -28,4 +28,8 @@ class CityRepositoryImpl @Inject constructor(
         return Completable.fromCallable { dataSource.insertCities(cityList) }
             .andThen(Observable.just(cityList))
     }
+
+    override fun delete(cityId: Long): Completable {
+        return Completable.fromCallable { dataSource.delete(cityId) }
+    }
 }

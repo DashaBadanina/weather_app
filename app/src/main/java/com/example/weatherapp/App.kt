@@ -12,13 +12,11 @@ class App : Application() {
 
 
     private lateinit var appComponent: AppComponent
-    private lateinit var prepopulateDataProvider: PrepopulateDataProvider
 
     override fun onCreate() {
         super.onCreate()
         instance = this
         appComponent = createAppComponent()
-        prepopulateDataProvider = PrepopulateDataProvider()
         initPrePopulateDb()
     }
 
@@ -36,7 +34,7 @@ class App : Application() {
     private fun initPrePopulateDb() {
         appComponent
             .getCityRepository()
-            .saveAll(prepopulateDataProvider.getPrePopulatedCities())
+            .saveAll(PrepopulateDataProvider.getPrePopulatedCities())
             .subscribeOn(Schedulers.io())
             .subscribe()
     }

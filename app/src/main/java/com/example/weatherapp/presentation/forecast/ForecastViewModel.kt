@@ -16,7 +16,6 @@ class ForecastViewModel
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     private val forecast: MutableLiveData<ForecastModel> = MutableLiveData()
-    private val state: MutableLiveData<Boolean> = MutableLiveData()
     private val error: MutableLiveData<Any> = MutableLiveData()
 
     fun getForecast(): LiveData<ForecastModel> = forecast
@@ -27,11 +26,6 @@ class ForecastViewModel
         disposable.add(
             forecastInteractor
                 .getForecast(cityId)
-                .doOnSubscribe {
-                    state.postValue(true)
-                }
-                .map { it }
-                .doOnNext { state.postValue(false) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ forecast.postValue(it) }, { error.postValue(Any()) })

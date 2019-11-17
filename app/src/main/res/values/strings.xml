@@ -3,6 +3,7 @@
     <string name="error_message">Something go wrong. Please check the network connection.</string>
 
     <!--CitiesActivity!-->
+    <string name="remove_city">remove</string>
     <string name="search_title">Do you want to add other cities?</string>
 
     <!--ForecastActivity!-->

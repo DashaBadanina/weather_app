@@ -16,6 +16,6 @@ interface ForecastDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertForecast(forecast: ForecastModel)
 
-    @Query("DELETE FROM forecast")
-    fun deleteAll()
+    @Query("DELETE FROM forecast WHERE id = :cityId")
+    fun delete(cityId: Long)
 }
