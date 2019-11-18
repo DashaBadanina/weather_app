@@ -10,6 +10,7 @@
     <string name="degree_celsius">%s \u2103</string>
     <string name="forecast">5 day weather forecast</string>
     <string name="city_and_country">%s, %s</string>
+    <string name="no_forecast_message_text">No preloaded data</string>
 
     <!--SearchActivity!-->
     <string name="add_city">add</string>

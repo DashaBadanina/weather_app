@@ -53,6 +53,7 @@ class ForecastActivity : AppCompatActivity() {
 
     private fun onDataUpdate(forecast: ForecastModel?) {
         forecast?.let {
+            no_result_message.visibility = View.GONE
             city_name.text =
                 resources.getString(R.string.city_and_country, forecast.name, forecast.country)
             city_description.text = forecast.current_weather_desc
@@ -65,6 +66,7 @@ class ForecastActivity : AppCompatActivity() {
     }
 
     private fun onError() {
+        no_result_message.visibility = View.VISIBLE
         Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_LONG).show()
     }
 
